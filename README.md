@@ -14,7 +14,7 @@ sudo apt-get install libsqlite3-dev //安装对应的api
 
 以上两项都安装后才可以使用
 
-server文件夹中是服务器端代码，client文件夹中是客户端代码
+server文件夹中是服务器端代码，client文件夹中是客户端代码，服务器默认ip地址为本机，端口8000。
 
 ## 使用方法
 

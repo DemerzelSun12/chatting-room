@@ -2,6 +2,7 @@
 
 /**
  * assignment struct server_addr_in
+ * default: set server ip address to localhost, port number in "data.h", default is 8000
  **/
 void mybzero(struct sockaddr_in *sin) {
     bzero(sin, sizeof(struct sockaddr_in));

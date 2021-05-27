@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
     stChat temp;
     // log in and register, after log in can chat
     while (!loged) {
-        printf("\tplease input command, input help for help");
+        printf("\tplease input command, input help for help\n>");
         scanf("%s", cmd);
         temp.cmd = analy_cmd(cmd);
         switch (temp.cmd) {

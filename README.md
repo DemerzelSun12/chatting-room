@@ -1,4 +1,4 @@
-# happy-chating
+# chating room
 
 网络聊天室学习项目
 受《linux高性能服务器编程》9.6节的启发，实现一个简单的聊天室，逐步丰富功能。

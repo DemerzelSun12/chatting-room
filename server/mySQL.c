@@ -1,5 +1,28 @@
 #include "data.h"
 
+/**
+ * @description: compare two buffer A and B, in strict time bound Theta(min{len_a, len_b}),
+ *               no matter if they are identical and where the difference is.
+ *               This is essential when verifying username and password,
+ *               which can prevent potential timing attack.
+ * @param a: buffer A
+ * @param b: buffer B
+ * @param len_a: length of buffer A
+ * @param len_b: length of buffer B
+ * @return 0 if A and B are equal, non-zero value if not equal.
+ */
+static int fixed_time_compare(char *a, char *b, size_t len_a, size_t len_b) {
+    int acc = 0;
+    size_t shorter_length = (len_a < len_b) ? len_a : len_b; // min(len_a, len_b)
+
+    // Theta(min(len_a, len_b))
+    for (size_t i = 0; i != shorter_length; ++i) {
+        acc |= a[i] ^ b[i];
+    }
+
+    return acc;
+}
+
 void is_sqlite_ok(int rc) {
     if (rc == SQLITE_OK) {
         printf("sqlite %d succse \n", __LINE__);
@@ -147,8 +170,10 @@ int read_pass(sqlite3 *db, char **errmsg, char *user, char *passwd) {
     int userflag = 1;
     int passwdflag = 1;
     while (rc == SQLITE_ROW) {
-        userflag = strcmp(user, sqlite3_column_text(stmt, 1));
-        passwdflag = strcmp(passwd, sqlite3_column_text(stmt, 2));
+        char *actual_username = sqlite3_column_text(stmt, 1);
+        char *actual_password = sqlite3_column_text(stmt, 2);
+        userflag = fixed_time_compare(user, actual_username, strlen(user), strlen(actual_username));
+        passwdflag = fixed_time_compare(passwd, actual_password, strlen(passwd), strlen(actual_password));
         if (userflag == 0 && passwdflag == 0) {
             return PASSWDOK;
         }
@@ -156,6 +181,7 @@ int read_pass(sqlite3 *db, char **errmsg, char *user, char *passwd) {
     }
     return PASSWDNO;
 }
+
 /**
  * @description: send information to online users
  * @param {*}

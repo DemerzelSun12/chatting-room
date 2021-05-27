@@ -1,17 +1,16 @@
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 #include <arpa/inet.h>
 #include <assert.h>
-#include <fcntl.h>
-#include <netinet/in.h>
-#include <poll.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <sys/types.h>
 #include <unistd.h>
-
-#include "cmd.h"
+#include <string.h>
+#include <stdlib.h>
+#include <poll.h>
+#include <fcntl.h>
 #include "data.h"
+#include "cmd.h"
 #include "my_function.h"
 
 #define BUFFER_SIZE 64
@@ -56,7 +55,7 @@ int main(int argc, char* argv[]) {
     stChat temp;
     // log in and register, after log in can chat
     while (!loged) {
-        printf("\t请输入相应的命令(如忘记请输help):");
+        printf("\tplease input command, input help for help");
         scanf("%s", cmd);
         temp.cmd = analy_cmd(cmd);
         switch (temp.cmd) {

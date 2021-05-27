@@ -1,6 +1,6 @@
+#include "data.h"
 #include "cmd.h"
 
-#include "data.h"
 #include "my_function.h"
 int analy_cmd(char *cmd)  // analysis command
 {
